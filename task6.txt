@@ -1,0 +1,9 @@
+1. SELECT p.wage AS subject_wage, p.name AS subject_name, p2.name AS chief_name, p2.wage AS chief_wage
+    FROM person p, person p2
+    WHERE p2.id=p.chief_id AND p.wage > p2.wage;
+
+4. SELECT branch.name, SUM(person.wage) as Sum_wage
+   FROM branch INNER JOIN person
+   ON branch.id = person.office_id
+   GROUP BY person.office_id
+   ORDER BY Sum_wage DESC

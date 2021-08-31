@@ -1,0 +1,36 @@
+<script>
+    function autocomplete(search, dictionary, results_limit)
+    {
+        let arrayResult;
+        let subStr;
+
+        search = lettersOnly(search);
+
+        dictionary.forEach(function (value, index, array) {
+            array[index] = lettersOnly(value);
+        });
+
+        arrayResult = dictionary.filter(s => s.toLowerCase().startsWith(search.toLowerCase()));
+
+        arrayResult = arrayResult.slice(0, results_limit);
+
+        if (arrayResult.length === 0) {
+            for (let i = 0; i <= search.length - 1; i++) {
+                subStr = search.substring(0, search.length - i);
+                if (subStr !== '' && dictionary[i].toLowerCase().startsWith(subStr.toLowerCase()) && arrayResult.length <= results_limit) {
+                    arrayResult = dictionary.slice(0, results_limit).filter(s => s.toLowerCase().startsWith(subStr.toLowerCase()));
+                    break;
+                }
+            }
+        }
+
+        return arrayResult;
+    }
+
+    function lettersOnly(str)
+    {
+        return str.replace(/[^a-zA-Z]/g,"");
+    }
+
+    console.log(autocomplete('panic', ['Panda', 'panel', 'span', 'pants', 'picnic', 'pacman'], 5));
+</script>
