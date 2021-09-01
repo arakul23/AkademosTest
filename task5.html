@@ -1,0 +1,41 @@
+<script>
+    function numOfNeighbour(mat, i, j, rows, cols)
+    {
+        let count = 0;
+
+        // UP
+        if (i > 0  && mat[i - 1][j]==='X')
+            count++;
+
+        // LEFT
+        if (j > 0  && mat[i][j - 1]==='X')
+            count++;
+
+        // DOWN
+        if (i < rows-1  && mat[i + 1][j]==='X')
+            count++;
+
+        // RIGHT
+        if (j < cols-1 && mat[i][j + 1]==='X')
+            count++;
+
+        return count;
+    }
+
+    function calcPerimeter(mat)
+    {
+        let perimeter = 0;
+        let rows=mat.length;
+        let cols=mat[0].length;
+
+        for (let i = 0; i < rows; i++)
+            for (let j = 0; j < cols; j++)
+                if (mat[i][j] && mat[i][j] === 'X')
+                    perimeter += (4 - numOfNeighbour(mat, i ,j,rows,cols));
+
+        return perimeter;
+    }
+
+    console.log("perimeter of ['XOOXO', 'XOOXO', 'OOOXO', 'XXOXO', 'OXOOO'] is ", calcPerimeter(['XOOXO', 'XOOXO', 'OOOXO', 'XXOXO', 'OXOOO']));
+    console.log("perimeter of ['XOOO', 'XOXO', 'XOXO', 'OOXX', 'OOOO'] is", calcPerimeter(['XOOO', 'XOXO', 'XOXO', 'OOXX', 'OOOO']));
+</script>

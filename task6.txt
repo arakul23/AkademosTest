@@ -2,6 +2,15 @@
     FROM person p, person p2
     WHERE p2.id=p.chief_id AND p.wage > p2.wage;
 
+2. SELECT branch.name as office_name, person.name as person_name, MAX(person.wage) as highest_wage from branch
+   LEFT JOIN person ON branch.id = person.office_id
+   WHERE (wage) IN (SELECT MAX(wage) FROM person GROUP BY office_id) OR person.office_id IS NULL
+   GROUP BY person.id
+
+3. SELECT p2.name, p.chief_id, COUNT(p.chief_id) as subject_count FROM person p, person p2
+    WHERE p2.id = p.chief_id
+    GROUP BY p.chief_id HAVING COUNT(p.chief_id) = 1
+
 4. SELECT branch.name, SUM(person.wage) as Sum_wage
    FROM branch INNER JOIN person
    ON branch.id = person.office_id
